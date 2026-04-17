@@ -2,34 +2,27 @@
 
 import { useEffect, useState } from "react";
 
+function getTimeLeft(targetDate: number) {
+  const difference = targetDate - Date.now();
+  if (difference <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+  return {
+    days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+    hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+    minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
+    seconds: Math.floor((difference % (1000 * 60)) / 1000),
+  };
+}
+
+const TARGET_DATE = Date.now() + 24 * 60 * 60 * 1000;
+
 export default function CountdownTimer() {
-  const [timeLeft, setTimeLeft] = useState({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-  });
+  const [timeLeft, setTimeLeft] = useState(() => getTimeLeft(TARGET_DATE));
 
   useEffect(() => {
-    const targetDate = Date.now() + 24 * 60 * 60 * 1000;
-
     const timer = setInterval(() => {
-      const now = new Date().getTime();
-      const difference = targetDate - now;
-
-      if (difference > 0) {
-        setTimeLeft({
-          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-          hours: Math.floor(
-            (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-          ),
-          minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
-          seconds: Math.floor((difference % (1000 * 60)) / 1000),
-        });
-      } else {
-        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-        clearInterval(timer);
-      }
+      const tl = getTimeLeft(TARGET_DATE);
+      setTimeLeft(tl);
+      if (Object.values(tl).every((v) => v === 0)) clearInterval(timer);
     }, 1000);
 
     return () => clearInterval(timer);
@@ -46,7 +39,7 @@ export default function CountdownTimer() {
     <div className="flex items-center justify-center gap-2 mb-8 px-2">
       {boxes.map((box, index) => (
         <div key={box.label} className="flex items-center gap-2">
-          <div className="bg-gradient-to-br from-emerald-600 to-teal-700 rounded-xl p-3 w-[68px] sm:w-[100px] sm:p-6 shadow-2xl flex-shrink-0">
+          <div className="bg-gradient-to-br from-emerald-600 to-teal-700 rounded-xl p-3 w-[68px] sm:w-[100px] sm:p-6 shadow-2xl flex-shrink-0" style={{minHeight: '80px'}}>
             <div className="text-2xl sm:text-5xl font-bold text-white">
               {String(box.value).padStart(2, "0")}
             </div>
