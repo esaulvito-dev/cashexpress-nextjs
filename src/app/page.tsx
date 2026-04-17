@@ -10,7 +10,7 @@ export default function HomePage() {
         <div className="absolute inset-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="https://static.readdy.ai/image/3e793795e87845ada69b8088167d8f30/16a4cc7c4e8b2783cef47c353b3a08bf.jpeg"
+            src="/hero-bg.webp"
             alt="Workspace digital con gráficos de ventas y analítica"
             title="Productos digitales con inteligencia artificial"
             className="w-full h-full object-cover object-center"
@@ -215,7 +215,7 @@ export default function HomePage() {
                 <div className="absolute -top-3 -left-3 w-16 h-16 sm:w-24 sm:h-24 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl opacity-20"></div>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="https://static.readdy.ai/image/3e793795e87845ada69b8088167d8f30/6db1f902baa70cf225dc0ef59a98b73c.png"
+                  src="/esaul-lorenzo.webp"
                   alt="Esaúl Lorenzo - Mentor de productos digitales con inteligencia artificial"
                   title="Esaúl Lorenzo mentor digital"
                   className="relative rounded-2xl shadow-2xl w-full h-auto"
